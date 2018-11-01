@@ -72,6 +72,7 @@ def tinyMazeSearch(problem):
     w = Directions.WEST
     return  [s, s, w, s, w, w, s, w]
 
+
 def depthFirstSearch(problem):
     """
     Search the deepest nodes in the search tree first.
@@ -87,12 +88,43 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    from util import Stack
+    from game import Directions
+    fringe = Stack()
+    nl = []
+    closed = []
+    for i in problem.getSuccessors(problem.getStartState()):
+        fringe.push(i)
+    s = Directions.SOUTH
+    w = Directions.WEST
+    n = Directions.NORTH
+    e = Directions.EAST
+    # print "Start:", problem.getStartState()
+    # print "Is the start a goal?", problem.isGoalState(problem.getStartState())
+    # print "Start's successors:", problem.getSuccessors(problem.getStartState())
+    counter = 0
+    while not fringe.isEmpty():
+        counter += 1
+        current = fringe.pop()
+        if problem.isGoalState(current[0]):
+            print(counter)
+            return nl
+        if current[0] not in closed:
+            closed.append(current[0])
+            nl.append(current[1])
+            for i in problem.getSuccessors(current[0]):
+                print(i)
+                fringe.push(i)
+
+    return nl
+    # util.raiseNotDefined()
+
 
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
     util.raiseNotDefined()
+
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
