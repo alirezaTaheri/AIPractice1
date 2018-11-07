@@ -91,32 +91,25 @@ def depthFirstSearch(problem):
     from util import Stack
     from game import Directions
     fringe = Stack()
-    nl = []
     closed = []
-    for i in problem.getSuccessors(problem.getStartState()):
-        fringe.push(i)
-    s = Directions.SOUTH
-    w = Directions.WEST
-    n = Directions.NORTH
-    e = Directions.EAST
+    fringe.push([problem.getStartState(), [], 0])
+    # s = Directions.SOUTH
+    # w = Directions.WEST
+    # n = Directions.NORTH
+    # e = Directions.EAST
     # print "Start:", problem.getStartState()
     # print "Is the start a goal?", problem.isGoalState(problem.getStartState())
     # print "Start's successors:", problem.getSuccessors(problem.getStartState())
-    counter = 0
     while not fringe.isEmpty():
-        counter += 1
         current = fringe.pop()
         if problem.isGoalState(current[0]):
-            print(counter)
-            return nl
+            return current[1]
         if current[0] not in closed:
             closed.append(current[0])
-            nl.append(current[1])
-            for i in problem.getSuccessors(current[0]):
-                print(i)
-                fringe.push(i)
+            for child in problem.getSuccessors(current[0]):
+                s = [child[0], current[1] + [child[1]]]
+                fringe.push(s)
 
-    return nl
     # util.raiseNotDefined()
 
 
