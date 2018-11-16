@@ -92,7 +92,7 @@ def depthFirstSearch(problem):
     from game import Directions
     fringe = Stack()
     closed = []
-    fringe.push([problem.getStartState(), [], 0])
+    fringe.push([problem.getStartState(), []])
     # s = Directions.SOUTH
     # w = Directions.WEST
     # n = Directions.NORTH
@@ -116,13 +116,25 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
-
+    from util import Queue
+    fringe = Queue()
+    closed = []
+    fringe.push([problem.getStartState(), []])
+    # util.raiseNotDefined()
+    while not fringe.isEmpty():
+        current = fringe.pop()
+        if problem.isGoalState(current[0]):
+            return current[1]
+        if current[0] not in closed:
+            closed.append(current[0])
+            for child in problem.getSuccessors(current[0]):
+                s = [child[0], current[1] + [child[1]]]
+                fringe.push(s)
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
-    util.raiseNotDefined()
+    # util.raiseNotDefined()
 
 def nullHeuristic(state, problem=None):
     """
