@@ -109,7 +109,7 @@ def depthFirstSearch(problem):
             for child in problem.getSuccessors(current[0]):
                 s = [child[0], current[1] + [child[1]]]
                 fringe.push(s)
-
+    print ("Path Not Found!")
     # util.raiseNotDefined()
 
 
@@ -130,11 +130,28 @@ def breadthFirstSearch(problem):
             for child in problem.getSuccessors(current[0]):
                 s = [child[0], current[1] + [child[1]]]
                 fringe.push(s)
+    print ("Path Not Found!")
 
 def uniformCostSearch(problem):
     """Search the node of least total cost first."""
     "*** YOUR CODE HERE ***"
     # util.raiseNotDefined()
+    from util import PriorityQueue
+    fringe = PriorityQueue()
+    closed = []
+    fringe.push([problem.getStartState(), [], 0], 0)
+    # util.raiseNotDefined()
+    while not fringe.isEmpty():
+        current = fringe.pop()
+        if problem.isGoalState(current[0]):
+            return current[1]
+        if current[0] not in closed:
+            closed.append(current[0])
+            for child in problem.getSuccessors(current[0]):
+                s = [child[0], current[1] + [child[1]], child[2] + current[2]]
+                fringe.push(s, child[2] + current[2])
+    print ("Path Not Found!")
+
 
 def nullHeuristic(state, problem=None):
     """
